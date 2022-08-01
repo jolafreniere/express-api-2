@@ -2,13 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 var winston = require('winston'),
     expressWinston = require('express-winston');
+require('dotenv').config();
 
-
-
+const mongoUrl = process.env.MONGOUrl || "mongodb://admin:password@mongo-container:27017/dofus?authSource=admin"
 
 
 async function connect() {
-    await mongoose.connect("mongodb://admin:password@mongo-container:27017/dofus?authSource=admin")
+    await mongoose.connect(mongoUrl)
     const db = mongoose.connection;
 
     return db;
