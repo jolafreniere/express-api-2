@@ -9,5 +9,10 @@ describe('app.js', () => {
             .expect('Hello World!')
             .expect('Content-Type', /text/);
     });
+    it('should have a 404 status code', () => {
+        return request(app)
+             .get('/invalid')
+             .expect(404)
+     });
 });
 
