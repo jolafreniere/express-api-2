@@ -1,22 +1,33 @@
 var mongoose = require('mongoose');
 var router = require('express').Router();
+require('../../models/Item');
 var Item = mongoose.model('Item');
 
-router.get("/items", function(req, res, next) {
+
+if(process.env.ENVIRONMENT = "DEV"){
+  Item.deleteOne({"name": "test"})
+}
+router.get("/", function(req, res) {
     Item.find().then(function(items) {
         res.statusCode=200;
         return res.json({ items: items });
-    }).catch(next);
+    })
 });
 
-router.post('/items', function(req, res, next){
-    var itm = new Item();
-    itm.name = req.body.name;
-    console.log(itm);
+router.post('/',async function(req, res){
+    
+    let product = await Item.exists({name: "test"})
+    if(product){
+        res.statusCode = 400;
+        res.send("Item already exists");
+      } else {
+        const newItem = new Item({
+          name: "test"
+        });
+        res.statusCode = 200;
+        newItem.save().then((item) => {res.send(item)});
+      }
+    })
 
-    itm.save().then(function(){
-      return res.json({item: itm});
-    }).catch(next);
-  });
 
 module.exports = router;

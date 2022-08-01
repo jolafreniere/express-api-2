@@ -16,6 +16,8 @@
     "winston": "^3.8.1"
   },
   "scripts": {
-    "start": "nodemon -L app.js"
+    "start": "ENVIRONMENT=PRODUCTION nodemon -L app.js",
+    "test": "ENVIRONMENT=DEV mocha --timeout 10000",
+    "dev": "ENVIRONMENT=DEV nodemon -L app.js"
   }
 }
