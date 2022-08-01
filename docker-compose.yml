@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  database:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_db:/data/db
+  api:
+    container_name: api_container
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+volumes:
+  mongo_db: {}
