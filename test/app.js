@@ -4,11 +4,11 @@ const chai = require('chai');
 chai.use(chaiHttp);
 chai.should();
 const app = require('../app');
-require("../models/Item");
 app.use(require('../routes'));
+require("../models/Item");
+const mongoose = require('mongoose');
 
-
-describe('some tests', () => {
+describe('Route tests', () => {
     it('should return Hello World!', (done) => {
        chai.request(app)
             .get('/')
@@ -28,7 +28,9 @@ describe('some tests', () => {
         })
      });
      it('should create an item', (done) => {
-        chai.request(app)
+        const Item = mongoose.model("Item");
+        Item.deleteMany({}).then(() => {
+            chai.request(app)
             .post('/api/items/')
             .set('content-type', 'application/json')
             .send({name: "test"})
@@ -40,9 +42,10 @@ describe('some tests', () => {
                     done();
                 }
             })
-    });
-    it('should not create an item with an existing name', (done) => {
-        chai.request(app)
+        });
+    })
+    it('should not create an item that already exists', (done) => {
+            chai.request(app)
             .post('/api/items/')
             .set('content-type', 'application/json')
             .send({name: "test"})
@@ -54,8 +57,5 @@ describe('some tests', () => {
                     done();
                 }
             })
-    });
+    })
 });
-
-
-

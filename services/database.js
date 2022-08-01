@@ -15,10 +15,6 @@ async function connect() {
     db = conn.connection;
     //db.dropCollection("items");
 
-    if(process.env.ENVIRONMENT != "PRODUCTION"){
-        const Item = mongoose.model("Item");
-        await Item.deleteOne({})
-    }
     return;
 }
 
