@@ -5,7 +5,7 @@ services:
     container_name: mongo-container
     image: mongo:latest
     environment:
-      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_DATABASE=dofus
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
     restart: always
