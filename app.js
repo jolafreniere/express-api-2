@@ -30,7 +30,7 @@ async function main(){
         colorize: false,
         ignoreRoute: function (req, res) { return false; } // optional: allows to skip some log messages based on request and/or response
       }));
-  
+
 
     await connect();
     require("./models/Item");
@@ -39,6 +39,7 @@ async function main(){
     app.get('/', (req, res) => {
         res.status(200).send('Hello World!');
     });
+    console.log("Listening on port 3000");
     app.listen(3000);
 
 }

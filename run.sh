@@ -1,2 +1,2 @@
-npm install -g mocha
+npm install -g nodemon
 yarn start

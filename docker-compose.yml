@@ -16,6 +16,8 @@ services:
   api:
     container_name: api-container
     build: .
+    volumes:
+      - .:/usr/src/app
     ports:
       - 3000:3000
     depends_on:
